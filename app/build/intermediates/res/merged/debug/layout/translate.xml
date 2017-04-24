@@ -144,6 +144,7 @@
         android:textAlignment="center"
         android:imeOptions="actionSearch"
         android:inputType="textMultiLine"
+        android:maxLength="10000"
         android:textColor="@color/colorBlack"
         android:layout_gravity="bottom"
         />

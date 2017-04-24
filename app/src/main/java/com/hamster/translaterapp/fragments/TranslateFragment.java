@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -225,7 +226,7 @@ public class TranslateFragment extends Fragment implements TextView.OnEditorActi
         if(currentTranslateDataItem == null)
             return;
 
-        //Log.d("translaterApp" + getClass().toString(), "до " + TranslaterModel.getIstance().getLanguagesCodesFrom().get(lastSpinnerTranslateFromPosition) + "   " + TranslaterModel.getIstance().getLanguagesCodesTo().get(lastSpinnerTranslateToPosition));
+        Log.d("translaterApp" + getClass().toString(), "до " + TranslaterModel.getIstance().getLanguagesCodesFrom().get(lastSpinnerTranslateFromPosition) + "   " + TranslaterModel.getIstance().getLanguagesCodesTo().get(lastSpinnerTranslateToPosition));
 
         int translationFromLanguageIndex = -1;
         if(setFromLanguageSpinner) {
@@ -251,7 +252,7 @@ public class TranslateFragment extends Fragment implements TextView.OnEditorActi
             }
         }
 
-        //Log.d("translaterApp" + getClass().toString(), "после " + TranslaterModel.getIstance().getLanguagesCodesFrom().get(lastSpinnerTranslateFromPosition) + "   " + TranslaterModel.getIstance().getLanguagesCodesTo().get(lastSpinnerTranslateToPosition));
+        Log.d("translaterApp" + getClass().toString(), "после " + TranslaterModel.getIstance().getLanguagesCodesFrom().get(lastSpinnerTranslateFromPosition) + "   " + TranslaterModel.getIstance().getLanguagesCodesTo().get(lastSpinnerTranslateToPosition));
     }
 
     /**

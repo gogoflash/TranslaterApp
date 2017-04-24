@@ -1,0 +1,7 @@
+CHANGED,D:\Funny cats\android\TranslaterApp remote\TranslaterApp\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\hamster\translaterapp\fragments\TranslateFragment$1$override.class
+CHANGED,D:\Funny cats\android\TranslaterApp remote\TranslaterApp\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\hamster\translaterapp\fragments\TranslateFragment$2$override.class
+CHANGED,D:\Funny cats\android\TranslaterApp remote\TranslaterApp\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\hamster\translaterapp\fragments\TranslateFragment$override.class
+CHANGED,D:\Funny cats\android\TranslaterApp remote\TranslaterApp\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\android\tools\fd\runtime\AppPatchesLoaderImpl.class
+CHANGED,D:\Funny cats\android\TranslaterApp remote\TranslaterApp\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\hamster\translaterapp\fragments\TranslateFragment$4$override.class
+CHANGED,D:\Funny cats\android\TranslaterApp remote\TranslaterApp\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\hamster\translaterapp\fragments\TranslateFragment$3$override.class
+CHANGED,D:\Funny cats\android\TranslaterApp remote\TranslaterApp\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\hamster\translaterapp\fragments\TranslateFragment$5$override.class
