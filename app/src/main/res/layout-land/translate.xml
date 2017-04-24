@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:id="@+id/languagesChangeBlock"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonSwapLanguages"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_compare_arrows_black_24dp"
+            android:layout_centerVertical="true"
+            android:background="@android:color/white"
+            />
+
+        <Spinner
+            android:id="@+id/spinnerLanguageFrom"
+            style="@style/languages_spinner_from_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/buttonSwapLanguages"
+            />
+
+        <Spinner
+            android:id="@+id/spinnerLanguageTo"
+            style="@style/languages_spinner_to_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/buttonSwapLanguages"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/languagesChangeBlock"
+        android:id="@+id/textInputBlock"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <EditText
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
+                android:scrollHorizontally="false"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:imeOptions="actionSearch"
+                android:text="Введите текст"
+                android:id="@+id/textInput"
+                android:inputType="textMultiLine"
+                android:maxLength="10000"
+                android:textSize="20sp"
+                android:background="@color/colorLightGray"
+                android:layout_marginBottom="50dp"
+                />
+
+            <LinearLayout
+                android:id="@+id/buttonsBlock"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_alignParentBottom="true"
+               >
+
+                <ToggleButton
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/buttonFavorites"
+                    android:textOn=""
+                    android:textOff=""
+                    android:background="@drawable/button_favorites_background_selector"/>
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/buttonTranslate"
+                    android:src="@drawable/button_translate_selector_icon"
+                    android:layout_marginLeft="65dp"
+                    android:layout_marginRight="65dp"
+                    android:background="@drawable/button_background_selector"/>
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/buttonClear"
+                    android:src="@drawable/button_clear_selector_icon"
+                    android:background="@drawable/button_background_selector"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"/>
+
+        <ScrollView
+
+            android:id="@+id/ScrollView01"
+            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ваш перевод"
+                android:id="@+id/textOutput"
+                android:textSize="22sp"
+                android:textIsSelectable="true"
+                />
+
+        </ScrollView>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="2dp"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/translateLicenseLinkText"
+        android:textAlignment="center"
+        android:textColor="@color/colorBlack"
+        android:layout_gravity="bottom"
+        />
+
+</LinearLayout>

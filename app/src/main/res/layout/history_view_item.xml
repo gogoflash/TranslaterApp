@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    >
+
+    <LinearLayout
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingRight="2dp"
+        >
+
+        <TextView
+            android:id="@+id/historyItemLangFromText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:paddingTop="10dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_gravity="end"
+            android:textAlignment="viewEnd"
+            />
+
+        <TextView
+            android:id="@+id/historyItemLangToText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:textSize="22sp"
+            android:layout_gravity="end"
+            android:textAlignment="viewEnd"
+            android:paddingBottom="10dp"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:paddingLeft="3dp"
+        android:paddingRight="5dp"
+        >
+
+        <TextView
+            android:id="@+id/historyItemSourceText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:paddingTop="10dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_gravity="center_vertical"
+            android:maxLines="1"
+            android:ellipsize="end"
+            />
+
+        <TextView
+            android:id="@+id/historyItemResultText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/colorBlack"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:paddingBottom="10dp"
+            />
+    </LinearLayout>
+
+</LinearLayout>
