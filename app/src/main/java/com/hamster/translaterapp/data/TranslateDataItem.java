@@ -2,7 +2,7 @@ package com.hamster.translaterapp.data;
 
 import android.database.Cursor;
 
-import com.hamster.translaterapp.MD5;
+import com.hamster.translaterapp.utils.MD5;
 
 /**
  * Created by ПК on 10.04.2017.
@@ -43,13 +43,12 @@ public class TranslateDataItem {
         this.languageTo = languageTo;
         this.api = api;
 
-        // нельзя формировать хеш, используя languageFrom, так как он неизвестен заранее(когда как раз и нужно чекнуть в кеше)
-        // в случае автоопределения языка
         hash = MD5.get(sourceText) + languageTo;
+        // тут момент: нельзя формировать хеш, используя languageFrom, так как он неизвестен заранее(а потому не получится вытащить из кеша при том же автоопределении)
     }
 
     /**
-     * Конструктор при вытаскивании из базы данных
+     * Конструктор при выдергивании из базы данных
      * */
     public TranslateDataItem(Cursor cursor) {
         if(cursor == null)
@@ -68,6 +67,4 @@ public class TranslateDataItem {
 
     public TranslateDataItem() {
     }
-
-
 }

@@ -1,7 +1,5 @@
 package com.hamster.translaterapp.fragments;
 
-import android.app.Application;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.support.annotation.Nullable;
@@ -15,7 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.hamster.translaterapp.R;
-import com.hamster.translaterapp.TranslaterModel;
+import com.hamster.translaterapp.data.TranslaterModel;
 
 /**
  * Created by ПК on 17.04.2017.

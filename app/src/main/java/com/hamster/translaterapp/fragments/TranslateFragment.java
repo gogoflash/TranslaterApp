@@ -10,7 +10,6 @@ import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,10 +24,8 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.hamster.translaterapp.R;
-import com.hamster.translaterapp.TranslaterModel;
+import com.hamster.translaterapp.data.TranslaterModel;
 import com.hamster.translaterapp.data.TranslateDataItem;
-
-import java.util.ArrayList;
 
 
 /**
@@ -129,14 +126,27 @@ public class TranslateFragment extends Fragment implements TextView.OnEditorActi
         refreshTranslate(false);
     }
 
-    public void refreshTranslate(Boolean setTranslateFromLanguageFromItem)
+    /**
+     * Обновляет состояние экрана. Сеттит перевод (или исходный текст если перешли из истории/избранного), спиннеры языков
+     *
+     * @param setFromLanguageSpinner устанавливать ли спиннер с какого языка был перевод. Нужно при переходе из истории/избранного.
+     *
+     * */
+    public void refreshTranslate(Boolean setFromLanguageSpinner)
     {
         if (!isAdded())
             return;
 
+        /**
+         * 3 стейта:
+         * 1) Начальный. Сеттим сохраненные данные из SharedPreferences
+         * 2) Пришел результат перевода из апи, либо из истории/избранного. Сеттим новые данные.
+         * 3) Всё уже засеччено в один из предыдущих вызовов. Игнорируем.
+         * */
+
         if(TranslaterModel.getIstance().getTranslateDataItem() == null)
         {
-            // Начальный стейт:
+            // 1) Начальный. Сеттим из SharedPreferences:
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
             translateCheckHandler.removeCallbacks(delayedTranslateRunnable);
 
@@ -145,50 +155,16 @@ public class TranslateFragment extends Fragment implements TextView.OnEditorActi
         }
         else if(TranslaterModel.getIstance().getTranslateDataItem() != currentTranslateDataItem)
         {
-            // Есть новые данные. Сеттим их:
+            // 2) Есть новые данные. Сеттим их:
             currentTranslateDataItem = TranslaterModel.getIstance().getTranslateDataItem();
             textInTranslate = currentTranslateDataItem.sourceText;
 
-            // сохраняем положение каретки
+            // сохраняем положение каретки(критично при вводе текста)
             int caretIndex = textInput.getSelectionStart();
-            String text = textInput.getText().toString();
             textInput.setText(currentTranslateDataItem.sourceText);
             textInput.setSelection(Math.min(textInput.length(), caretIndex));
-            String text1 = textInput.getText().toString();
 
-////////////////////////////////////////////////            //////////////////////////
-            Log.d("translaterApp" + getClass().toString(), "до " + TranslaterModel.getIstance().getLanguagesCodesFrom().get(lastSpinnerTranslateFromPosition) + "   " + TranslaterModel.getIstance().getLanguagesCodesTo().get(lastSpinnerTranslateToPosition));
-
-            int translationFromLanguageIndex = -1;
-            if(setTranslateFromLanguageFromItem) {
-
-                if(currentTranslateDataItem.languageFrom != null) {
-                    String translationFromLanguage = TranslaterModel.getIstance().getLanguagesCodesFrom().get((int) spinnerTranslateFrom.getSelectedItemId());
-                    if(translationFromLanguage != "auto") {
-                        translationFromLanguageIndex = TranslaterModel.getIstance().getLanguagesCodesFrom().indexOf(currentTranslateDataItem.languageFrom);
-                        lastSpinnerTranslateFromPosition = translationFromLanguageIndex;
-                    }
-                }
-            }
-
-            int translationToLanguageIndex = -1;
-            if(currentTranslateDataItem.languageTo != null) {
-               translationToLanguageIndex = TranslaterModel.getIstance().getLanguagesCodesTo().indexOf(currentTranslateDataItem.languageTo);
-                lastSpinnerTranslateToPosition = translationToLanguageIndex;
-            }
-
-            Log.d("translaterApp" + getClass().toString(), "после " + TranslaterModel.getIstance().getLanguagesCodesFrom().get(lastSpinnerTranslateFromPosition) + "   " + TranslaterModel.getIstance().getLanguagesCodesTo().get(lastSpinnerTranslateToPosition));
-
-
-            if(translationFromLanguageIndex != -1)
-                spinnerTranslateFrom.setSelection(translationFromLanguageIndex);
-
-            if(translationToLanguageIndex != -1)
-                spinnerTranslateTo.setSelection(translationToLanguageIndex);
-
-//////////////////////////////////////////////////////////////
-
-
+            setSpinnersFromCurrentTranslateDataItem(setFromLanguageSpinner);
 
             textOutput.setText(currentTranslateDataItem.resultText);
 
@@ -196,7 +172,7 @@ public class TranslateFragment extends Fragment implements TextView.OnEditorActi
         }
         else
         {
-            // Никаких изменений. Вырубаем кнопку перевода.
+            // Никаких изменений. На всякий пожарный выключаем кнопку перевода:
             buttonTranslate.setEnabled(false);
         }
 
@@ -219,10 +195,7 @@ public class TranslateFragment extends Fragment implements TextView.OnEditorActi
         if(translateFromSpinnerAdapter != null) {
             spinnerTranslateFrom.setAdapter(translateFromSpinnerAdapter);
             int fromPosition = Math.max(0, TranslaterModel.getIstance().getLanguagesCodesFrom().indexOf(TranslaterModel.getIstance().translationFromLanguage));
-            String ssss = TranslaterModel.getIstance().translationFromLanguage;
-            Log.d("translaterApp", TranslaterModel.getIstance().translationFromLanguage);
             spinnerTranslateFrom.setSelection(fromPosition);
-
         }
 
         if(translateToSpinnerAdapter == null && TranslaterModel.getIstance().getLanguagesNamesTo().size() != 0)
@@ -243,6 +216,45 @@ public class TranslateFragment extends Fragment implements TextView.OnEditorActi
         }
     }
 
+    public void refreshFavoritesButton() {
+        if(isAdded())
+            buttonFavorites.setChecked(currentTranslateDataItem != null ? currentTranslateDataItem.inFavorites : false);
+    }
+
+    private void setSpinnersFromCurrentTranslateDataItem(Boolean setFromLanguageSpinner)
+    {
+        if(currentTranslateDataItem == null)
+            return;
+
+        //Log.d("translaterApp" + getClass().toString(), "до " + TranslaterModel.getIstance().getLanguagesCodesFrom().get(lastSpinnerTranslateFromPosition) + "   " + TranslaterModel.getIstance().getLanguagesCodesTo().get(lastSpinnerTranslateToPosition));
+
+        int translationFromLanguageIndex = -1;
+        if(setFromLanguageSpinner) {
+            if(currentTranslateDataItem.languageFrom != null) {
+                String translationFromLanguage = TranslaterModel.getIstance().getLanguagesCodesFrom().get((int) spinnerTranslateFrom.getSelectedItemId());
+                // Если у юзера стоит автоопределении языка не будем юзеру пересеччивать этот спиннер, чтобы ему не пришлось каждый раз возвращать его обратно.
+                if(translationFromLanguage != "auto") {
+                    translationFromLanguageIndex = TranslaterModel.getIstance().getLanguagesCodesFrom().indexOf(currentTranslateDataItem.languageFrom);
+                    if(translationFromLanguageIndex != -1) {
+                        lastSpinnerTranslateFromPosition = translationFromLanguageIndex;
+                        spinnerTranslateFrom.setSelection(translationFromLanguageIndex);
+                    }
+                }
+            }
+        }
+
+        int translationToLanguageIndex = -1;
+        if(currentTranslateDataItem.languageTo != null) {
+            translationToLanguageIndex = TranslaterModel.getIstance().getLanguagesCodesTo().indexOf(currentTranslateDataItem.languageTo);
+            if(translationToLanguageIndex != -1) {
+                lastSpinnerTranslateToPosition = translationToLanguageIndex;
+                spinnerTranslateTo.setSelection(translationToLanguageIndex);
+            }
+        }
+
+        //Log.d("translaterApp" + getClass().toString(), "после " + TranslaterModel.getIstance().getLanguagesCodesFrom().get(lastSpinnerTranslateFromPosition) + "   " + TranslaterModel.getIstance().getLanguagesCodesTo().get(lastSpinnerTranslateToPosition));
+    }
+
     /**
      * Сохранение текущих введенных данных в SharedPreferences для возможности воостановления их при следующем запуске
      * */
@@ -253,14 +265,14 @@ public class TranslateFragment extends Fragment implements TextView.OnEditorActi
 
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
 
+        // В мелком проекте без перспективы развития нет смысла выносить текстовые константы или работу с SharedPreferences в отдельный класс. А так да.
         editor.putString("TEXT_INPUT", textInput.getText().toString().trim());
         editor.putString("TRANSLATE_FROM", TranslaterModel.getIstance().translationFromLanguage);
         editor.putString("TRANSLATE_TO", TranslaterModel.getIstance().translationToLanguage);
-
         editor.apply();
     }
 
-    public void translate(Boolean withClean)
+    private void translate(Boolean withClean)
     {
         if (!isAdded())
             return;
@@ -288,9 +300,6 @@ public class TranslateFragment extends Fragment implements TextView.OnEditorActi
 
         saveInputToSharedPreferences();
 
-        //String oldtranslationFromLanguage = TranslaterModel.getIstance().getLanguagesCodesFrom().get(spinnerTranslateFrom.getSelectedItemPosition());
-        //String oldtranslationToLanguage = TranslaterModel.getIstance().getLanguagesCodesTo().get(spinnerTranslateTo.getSelectedItemPosition());
-
         textInTranslate = text;
         TranslaterModel.getIstance().translate(text, TranslaterModel.getIstance().translationFromLanguage, TranslaterModel.getIstance().translationToLanguage);
         //Log.d("translaterApp", " translate " + text);
@@ -316,7 +325,7 @@ public class TranslateFragment extends Fragment implements TextView.OnEditorActi
     /**
      * Смена направления перевода языков, исключая вариант когда выбрано автоопределение
      **/
-    public void swapTranslateLanguages()
+    private void swapTranslateLanguages()
     {
         String translationFromLanguage = TranslaterModel.getIstance().getLanguagesCodesFrom().get((int) spinnerTranslateFrom.getSelectedItemId());
         if(translationFromLanguage.equals("auto"))
@@ -327,7 +336,7 @@ public class TranslateFragment extends Fragment implements TextView.OnEditorActi
         int translationToLanguageIndex = TranslaterModel.getIstance().getLanguagesCodesTo().indexOf(translationFromLanguage);
         int translationFromLanguageIndex = TranslaterModel.getIstance().getLanguagesCodesFrom().indexOf(translationToLanguage);
 
-        // А вот эту проверку многие в реальных проектах пропускают. Не факт, что в будущем список направлений переводов языков будет идентичен:
+        // Такие проверки многие в реальных проектах пропускают (проверка не особо нужна только пока список направлений переводов языков будет одинаков, но всё может измениться)
         if(translationFromLanguageIndex == -1 && translationFromLanguageIndex == -1)
             return;
 
@@ -339,7 +348,6 @@ public class TranslateFragment extends Fragment implements TextView.OnEditorActi
         spinnerTranslateFrom.setSelection(translationFromLanguageIndex);
         spinnerTranslateTo.setSelection(translationToLanguageIndex);
 
-        // все сносим и транслейт
         translate(true);
     }
 
@@ -392,7 +400,6 @@ public class TranslateFragment extends Fragment implements TextView.OnEditorActi
             //translate();
         }
     }
-
 
     @Override
     public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id)
@@ -447,13 +454,8 @@ public class TranslateFragment extends Fragment implements TextView.OnEditorActi
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        translateCheckHandler.removeCallbacks(delayedTranslateRunnable);
-        textInput.removeTextChangedListener(this);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
+        if(translateCheckHandler != null)
+            translateCheckHandler.removeCallbacks(delayedTranslateRunnable);
     }
 
     @Override
@@ -465,8 +467,7 @@ public class TranslateFragment extends Fragment implements TextView.OnEditorActi
     @Override
     public void onResume() {
         super.onResume();
-
-        refreshTranslate(false);
+        refreshTranslate(true);
     }
 
     @Override

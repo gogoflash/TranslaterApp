@@ -4,8 +4,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.CursorAdapter;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,15 +14,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.hamster.translaterapp.R;
-import com.hamster.translaterapp.TranslaterModel;
+import com.hamster.translaterapp.data.TranslaterModel;
 import com.hamster.translaterapp.data.TranslateDataItem;
 import com.hamster.translaterapp.data.TranslatesCacheTable;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by ПК on 10.04.2017.

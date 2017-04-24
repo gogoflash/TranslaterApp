@@ -16,10 +16,6 @@ public class TranslatesCacheDbHelper extends SQLiteOpenHelper
 
     private static final int DATABASE_VERSION = 1;
 
-  /*  public TranslatesCacheDbHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, DatabaseErrorHandler errorHandler) {
-        super(context, DATABASE_NAME, factory, DATABASE_VERSION, errorHandler);
-    }*/
-
     public TranslatesCacheDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -39,12 +35,22 @@ public class TranslatesCacheDbHelper extends SQLiteOpenHelper
         TranslatesCacheTable.onCreate(getWritableDatabase());
     }*/
 
-    public int deleteCache() {
-        return getWritableDatabase().delete(
-                TranslatesCacheTable.TABLE_NAME,
-                TranslatesCacheTable.COLUMN_IN_HISTORY + " = ? and " + TranslatesCacheTable.COLUMN_IN_FAVORITES + " = ?",
-                new String[] {"0", "0"}
-        );
+    public void insertTranslate(TranslateDataItem item)
+    {
+        SQLiteDatabase dataBase = safetyGetWritableDatabase();
+        if(dataBase == null)
+            return;
+
+        ContentValues values = new ContentValues();
+        values.put(TranslatesCacheTable.COLUMN_HASH, item.getHash());
+        values.put(TranslatesCacheTable.COLUMN_REQUEST_TEXT, item.sourceText);
+        values.put(TranslatesCacheTable.COLUMN_RESPONCE_TEXT, item.resultText);
+        values.put(TranslatesCacheTable.COLUMN_TRANSLATE_FROM, item.languageFrom);
+        values.put(TranslatesCacheTable.COLUMN_TRANSLATE_TO, item.languageTo);
+        values.put(TranslatesCacheTable.COLUMN_TIMESTAMP, item.timestamp);
+        values.put(TranslatesCacheTable.COLUMN_API, item.api);
+
+        long newRowId = dataBase.insert(TranslatesCacheTable.TABLE_NAME, null, values);
     }
 
     public int deleteTranslate(String column, Boolean delete) {
@@ -53,6 +59,10 @@ public class TranslatesCacheDbHelper extends SQLiteOpenHelper
 
     public int deleteTranslate(String column, Boolean delete, String hash)
     {
+        SQLiteDatabase dataBase = safetyGetWritableDatabase();
+        if(dataBase == null)
+            return 0;
+
         ContentValues contentValues = new ContentValues();
         contentValues.put(column, delete ? 0 : 1);
 
@@ -67,7 +77,7 @@ public class TranslatesCacheDbHelper extends SQLiteOpenHelper
             whereArgs = new String[] {delete ? "1" : "0", hash};
         }
 
-        return getWritableDatabase().update(
+        return dataBase.update(
                 TranslatesCacheTable.TABLE_NAME,
                 contentValues,
                 whereClause,
@@ -75,27 +85,17 @@ public class TranslatesCacheDbHelper extends SQLiteOpenHelper
                 );
     }
 
-    public void insertTranslate(TranslateDataItem item)
-    {
-        ContentValues values = new ContentValues();
-        values.put(TranslatesCacheTable.COLUMN_HASH, item.getHash());
-        values.put(TranslatesCacheTable.COLUMN_REQUEST_TEXT, item.sourceText);
-        values.put(TranslatesCacheTable.COLUMN_RESPONCE_TEXT, item.resultText);
-        values.put(TranslatesCacheTable.COLUMN_TRANSLATE_FROM, item.languageFrom);
-        values.put(TranslatesCacheTable.COLUMN_TRANSLATE_TO, item.languageTo);
-        values.put(TranslatesCacheTable.COLUMN_TIMESTAMP, item.timestamp);
-        values.put(TranslatesCacheTable.COLUMN_API, item.api);
-
-        long newRowId = getWritableDatabase().insert(TranslatesCacheTable.TABLE_NAME, null, values);
-    }
-
     public void updateTranslateItem(TranslateDataItem item, Boolean inFavorites, Boolean inHistory)
     {
+        SQLiteDatabase dataBase = safetyGetWritableDatabase();
+        if(dataBase == null)
+            return;
+
         ContentValues contentValues = new ContentValues();
         contentValues.put(TranslatesCacheTable.COLUMN_IN_FAVORITES, inFavorites ? 1 : 0);
         contentValues.put(TranslatesCacheTable.COLUMN_IN_HISTORY, inHistory ? 1 : 0);
 
-        getWritableDatabase().update(
+        dataBase.update(
                 TranslatesCacheTable.TABLE_NAME,
                 contentValues,
                 TranslatesCacheTable.COLUMN_HASH + " = ?",
@@ -121,21 +121,32 @@ public class TranslatesCacheDbHelper extends SQLiteOpenHelper
             return  item;
         }
         cursor.close();
-       // String item_content = cursor.getString(cursor.getColumnIndex(TranslatesCacheTable.COLUMN_RESPONCE_TEXT));
 
         return null;
+    }
+
+    public int deleteCache() {
+        SQLiteDatabase dataBase = safetyGetWritableDatabase();
+        if(dataBase == null)
+            return 0;
+
+        return dataBase.delete(
+                TranslatesCacheTable.TABLE_NAME,
+                TranslatesCacheTable.COLUMN_IN_HISTORY + " = ? and " + TranslatesCacheTable.COLUMN_IN_FAVORITES + " = ?",
+                new String[] {"0", "0"}
+        );
     }
 
     /**
      * TODO  может завершиться неудачно из-за проблем с полномочиями или нехваткой места на диске
      * */
-    public void checkWritebleDataBase() {
+    public SQLiteDatabase safetyGetWritableDatabase() {
         try {
-            getWritableDatabase();
+            return getWritableDatabase();
         }
         catch (SQLiteException ex){
-            getReadableDatabase();
+            TranslaterModel.getIstance().showErrorAlert("Ошибка доступа к базе данных", "Вероятно закончилось место и приложение не может сохранить данные. Попробуйте удалить ненужные данные.");
+            return null;
         }
     }
-
 }

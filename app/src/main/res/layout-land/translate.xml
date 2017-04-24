@@ -65,7 +65,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:imeOptions="actionSearch"
-                android:text="Введите текст"
+                android:text=""
                 android:id="@+id/textInput"
                 android:inputType="textMultiLine"
                 android:maxLength="10000"
@@ -97,8 +97,8 @@
                     android:layout_height="40dp"
                     android:id="@+id/buttonTranslate"
                     android:src="@drawable/button_translate_selector_icon"
-                    android:layout_marginLeft="65dp"
-                    android:layout_marginRight="65dp"
+                    android:layout_marginLeft="75dp"
+                    android:layout_marginRight="75dp"
                     android:background="@drawable/button_background_selector"/>
 
                 <ImageButton
@@ -134,7 +134,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ваш перевод"
+                android:text=""
                 android:id="@+id/textOutput"
                 android:textSize="22sp"
                 android:textIsSelectable="true"

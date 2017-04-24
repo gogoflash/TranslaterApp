@@ -124,7 +124,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ваш перевод"
+            android:text=""
             android:id="@+id/textOutput"
             android:textSize="22sp"
             android:textIsSelectable="true"
@@ -142,6 +142,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/translateLicenseLinkText"
         android:textAlignment="center"
+        android:imeOptions="actionSearch"
+        android:inputType="textMultiLine"
         android:textColor="@color/colorBlack"
         android:layout_gravity="bottom"
         />

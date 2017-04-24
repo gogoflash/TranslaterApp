@@ -1,27 +1,72 @@
 package com.hamster.translaterapp;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-
 import android.support.v7.app.AppCompatActivity;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import com.hamster.translaterapp.data.TranslaterModel;
 import com.hamster.translaterapp.fragments.FavoritesFragment;
 import com.hamster.translaterapp.fragments.HistoryFragment;
 import com.hamster.translaterapp.fragments.MainFragmentPagerAdapter;
 import com.hamster.translaterapp.fragments.SettingsFragment;
 import com.hamster.translaterapp.fragments.TranslateFragment;
 
+/************************** ОСНОВНЫЕ КЛАССЫ И ИХ РОЛИ *********************************************
+ *
+ * TranslaterModel - главный класс-модель и класс-менеджер.
+ *
+ * TranslateManager - работает с запросами и ответами api. Учитывает ошибки и кидает алерты.
+ *
+ * TranslatesCacheDbHelper - работа с базой данных и простейшие операции.
+ *
+ * TranslateDataItem - главная моделька для всех параметров одной единицы перевода
+ *
+ * Основные экраны-фрагменты с соответствующими названиями:
+ * TranslateFragment
+ * FavoritesFragment
+ * HistoryFragment
+ * SettingsFragment
+ *
+ **************************** ФИШЕЧКИ *************************************************************
+ *
+ * - Список языков подтягивается запросом в api. Основные языки сортируются сверху.
+ *
+ * - Реализован кеш, откуда подтягиваются данные вместо запроса в апи.
+ *
+ * - История != кеш! Это важно, так как позволяет при желании иметь оффлайн-базу, если засеттить кеш заранее.
+ *
+ * - Автоматический перевод введенного текста срабатывает через таймауты. Сами таймауты ступенчато изменяются
+ * в зависимости от объема текста. Последнее чтобы не дергать лишний раз апи и реже гонять перевод
+ * больших объемов текста. Но при большой задержке юзер всегда может нажать на кнопку, инициирующую перевод.
+ *
+ * - При восстановлении приложения запоминаются данные последнего перевода. Но именно перевода, а не
+ * данные из перехода из истории или избранного.
+ *
+ * - При переходе из истории или избранного при выбранном автоопределении языка этот спиннер не сбрасывается.
+ * Смысл в мнении, что юзер большую часть времени и будет сидеть на автоопределении и сбрасывать каждый
+ * раз этот спиннер с языками было бы некомфортно.
+ *
+ * - Корректное отображение в landscape-ориентации. Возможность скролла объемного текста
+ *
+ * - По правилам сервиса на основном экране и экране описания(настроек в данном случае)
+ * указан текст с активной ссылкой «Переведено сервисом «Яндекс.Переводчик». Важная мелочь.
+ *
+ ************** ЧТО ПОЯВИТСЯ В ПЛАТНОЙ ВЕРСИИ  (в смысле что не было сделано :)) ******************
+ *
+ * - оптимизация работы списков истории и избранного при очень длинных списках
+ * - работа с кешом переводов который сейчас может только расти, в отличии от чистящихся истории и избранного
+ * - больше настроек в экране настроек с блекджеком и шлюпками! С выбором любимых языков как минимум.
+ * - подтяг оффлаин-базы переводов
+ * - локализация. Это механическое действие и смысла тратить на нее время нет.
+ * - указание даты перевода в истории. Сейчас заложено сохранение unix-time в базу.
+ * - работа с разными апи переводчиков, но с внедрением неправильных результатов у сторонних апи, чтобы
+ * юзер убеждался, что лучший апи у яндекса )
+ * - при единичном переводимом слове с подтягом данных api yandex-словаря.
+ * - пасхалки на 1 апреля
+ * - юнит-тесты. Не успел.
+ *
+ * ************************************************************************************************/
 
 public class Main extends AppCompatActivity implements ViewPager.OnPageChangeListener {
 
@@ -32,14 +77,6 @@ public class Main extends AppCompatActivity implements ViewPager.OnPageChangeLis
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        // сохранять в опции экран и языки и восстанавливать корректно при восстановлении вкладки
-        // при назначаении из истории любимое не работает
-
-        // Фишка: история независима от кеша
-        // Фишка: изменение времени автоперевода при разном количестве рекста. больше текста больше время
-        // фищка при переходе из истории или избранного не удалять автонаправление перевода
-        // не забыть уузать почему не заюзал виртуал лейаут в истори и лббоми
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
@@ -58,16 +95,9 @@ public class Main extends AppCompatActivity implements ViewPager.OnPageChangeLis
 
         fragmentPager.setAdapter(adapter);
 
-        // это можно снести непонятно че оно делает
-        //adapter.notifyDataSetChanged();
-
-        // связка табов и вьюпейджера
         tabLayout.setupWithViewPager(fragmentPager);
 
         TranslaterModel.getIstance().setTranslateFragment(translateFragment);
-        //TranslaterModel.getIstance().setHistoryFragment(historyFragment);
-
-
 
         int[] tabIcons = {
                 R.drawable.ic_translate_black_24dp,
@@ -82,8 +112,6 @@ public class Main extends AppCompatActivity implements ViewPager.OnPageChangeLis
         }
 
         fragmentPager.addOnPageChangeListener(this);
-
-
     }
 
     public void goToFragmnetByIndex(int index) {
@@ -93,10 +121,7 @@ public class Main extends AppCompatActivity implements ViewPager.OnPageChangeLis
     @Override
     protected void onResume() {
         super.onResume();
-
         TranslaterModel.init(this);
-        //TranslaterModel.getIstance().setTranslateFragment(translateFragment);
-        //TranslaterModel.getIstance().setHistoryFragment(historyFragment);
     }
 
     @Override
@@ -114,25 +139,3 @@ public class Main extends AppCompatActivity implements ViewPager.OnPageChangeLis
     public void onPageScrollStateChanged(int state) {
     }
 }
-
-
-/*
-https://academy.yandex.ru/events/mobdev/msk-2017/
-
-Поле для ввода текста, который будет переведён на другой язык; переключатель языка и варианты перевода, которые появляются, когда пользователь вводит текст в поле.
-Возможность добавить переведённое слово или предложение в избранное.
-Возможность просмотра истории переводов.
-Возможность просмотра избранного.
-Перевод с одного языка на другой с помощью API Яндекс.Переводчика.
-Чтобы вам было легче, мы подготовили примерный вид экранов тестового приложения:
-
-Наш тестировщик, который будет проверять общую работоспособность и качество приложения, очень радуется, когда замечает:
-- отсутствие «падений» и непредусмотренного поведения приложения при выполнении основных действий,
-- общую плавность и отзывчивость интерфейса, красивую анимацию,
-- понятный интерфейс — чтобы перед использованием приложения не приходилось читать инструкции.
-
-Наш разработчик, который будет проверять код, очень радуется, когда видит:
-- комментарии в коде,
-- обработку ошибок,
-- кэширование (например, можно научить приложение сохранять предыдущий ответ сервера),
-- тесты.*/
