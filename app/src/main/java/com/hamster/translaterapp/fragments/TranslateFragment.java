@@ -129,10 +129,11 @@ public class TranslateFragment extends Fragment implements TextView.OnEditorActi
     /**
      * Обновляет состояние экрана. Сеттит перевод (или исходный текст если перешли из истории/избранного), спиннеры языков
      *
-     * @param setFromLanguageSpinner устанавливать ли спиннер с какого языка был перевод. Нужно при переходе из истории/избранного.
+     * @param setInputAndFromLanguageSpinner устанавливать ли спиннер с какого языка был перевод
+     *                                       и пересеччивать ли textInput. Нужно при переходе из истории/избранного.
      *
      * */
-    public void refreshTranslate(Boolean setFromLanguageSpinner)
+    public void refreshTranslate(Boolean setInputAndFromLanguageSpinner)
     {
         if (!isAdded())
             return;
@@ -159,12 +160,10 @@ public class TranslateFragment extends Fragment implements TextView.OnEditorActi
             currentTranslateDataItem = TranslaterModel.getIstance().getTranslateDataItem();
             textInTranslate = currentTranslateDataItem.sourceText;
 
-            // сохраняем положение каретки(критично при вводе текста)
-            int caretIndex = textInput.getSelectionStart();
-            textInput.setText(currentTranslateDataItem.sourceText);
-            textInput.setSelection(Math.min(textInput.length(), caretIndex));
+            if(setInputAndFromLanguageSpinner)
+                textInput.setText(currentTranslateDataItem.sourceText);
 
-            setSpinnersFromCurrentTranslateDataItem(setFromLanguageSpinner);
+            setSpinnersFromCurrentTranslateDataItem(setInputAndFromLanguageSpinner);
 
             textOutput.setText(currentTranslateDataItem.resultText);
 
