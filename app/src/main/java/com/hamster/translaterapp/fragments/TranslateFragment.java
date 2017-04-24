@@ -10,7 +10,6 @@ import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,6 +51,8 @@ public class TranslateFragment extends Fragment implements TextView.OnEditorActi
 
     private int lastSpinnerTranslateToPosition;
     private int lastSpinnerTranslateFromPosition;
+
+    private Boolean fromHistory = false;
 
     public TranslateFragment() {
     }
@@ -124,7 +125,7 @@ public class TranslateFragment extends Fragment implements TextView.OnEditorActi
         licenseLinkText.setText(Html.fromHtml(getResources().getString(R.string.yandex_api_license_link)));
 
         refreshLanguagesSpinners();
-        refreshTranslate(false);
+        refreshTranslate(false, false);
     }
 
     /**
@@ -134,10 +135,13 @@ public class TranslateFragment extends Fragment implements TextView.OnEditorActi
      *                                       и пересеччивать ли textInput. Нужно при переходе из истории/избранного.
      *
      * */
-    public void refreshTranslate(Boolean setInputAndFromLanguageSpinner)
+    public void refreshTranslate(Boolean setInputAndFromLanguageSpinner, Boolean fromHistory)
     {
         if (!isAdded())
             return;
+
+        if(fromHistory)
+            this.fromHistory = fromHistory;
 
         /**
          * 3 стейта:
@@ -226,7 +230,7 @@ public class TranslateFragment extends Fragment implements TextView.OnEditorActi
         if(currentTranslateDataItem == null)
             return;
 
-        Log.d("translaterApp" + getClass().toString(), "до " + TranslaterModel.getIstance().getLanguagesCodesFrom().get(lastSpinnerTranslateFromPosition) + "   " + TranslaterModel.getIstance().getLanguagesCodesTo().get(lastSpinnerTranslateToPosition));
+        //Log.d("translaterApp" + getClass().toString(), "до " + TranslaterModel.getIstance().getLanguagesCodesFrom().get(lastSpinnerTranslateFromPosition) + "   " + TranslaterModel.getIstance().getLanguagesCodesTo().get(lastSpinnerTranslateToPosition));
 
         int translationFromLanguageIndex = -1;
         if(setFromLanguageSpinner) {
@@ -252,7 +256,7 @@ public class TranslateFragment extends Fragment implements TextView.OnEditorActi
             }
         }
 
-        Log.d("translaterApp" + getClass().toString(), "после " + TranslaterModel.getIstance().getLanguagesCodesFrom().get(lastSpinnerTranslateFromPosition) + "   " + TranslaterModel.getIstance().getLanguagesCodesTo().get(lastSpinnerTranslateToPosition));
+        //Log.d("translaterApp" + getClass().toString(), "после " + TranslaterModel.getIstance().getLanguagesCodesFrom().get(lastSpinnerTranslateFromPosition) + "   " + TranslaterModel.getIstance().getLanguagesCodesTo().get(lastSpinnerTranslateToPosition));
     }
 
     /**
@@ -424,6 +428,18 @@ public class TranslateFragment extends Fragment implements TextView.OnEditorActi
             if(lastSpinnerTranslateToPosition == position)
                 return;
 
+            // Увы пришлось внедрять эту магию. Проблема в том, что при пересоздании фрагмета при переходе из истории(только из нее)
+            // сначала спиннер сеттится правильно: новым языком. А потом неправильно: снова старым, хотя никаких вызовов нет!
+            // И все это только если переводимый текст не меняется, а меняется язык перевода.
+            // Предполагаю, что это особенность работы фрагментов с их сохранением стейта портит малину. Отследить даже дебагером быстро не смог.
+            // Поэтому с прискорбием оставляю тут этот костыль. Чтобы увидеть описываемый баг достаточно закомменить весь if блок.
+            if(fromHistory) {
+                fromHistory = false;
+                currentTranslateDataItem = null;
+                translate(true);
+                return;
+            }
+
             lastSpinnerTranslateToPosition = position;
 
             String newTranslationToLanguage = TranslaterModel.getIstance().getLanguagesCodesTo().get(position);
@@ -467,7 +483,7 @@ public class TranslateFragment extends Fragment implements TextView.OnEditorActi
     @Override
     public void onResume() {
         super.onResume();
-        refreshTranslate(true);
+        refreshTranslate(true, false);
     }
 
     @Override

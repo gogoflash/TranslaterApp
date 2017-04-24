@@ -53,7 +53,7 @@ public class HistoryFragment extends Fragment implements AdapterView.OnItemClick
 
         if( cursor.getCount() > 0 ) {
             TranslateDataItem translateDataItem = new TranslateDataItem(cursor);
-            TranslaterModel.getIstance().setTranslate(translateDataItem, false, true);
+            TranslaterModel.getIstance().setTranslate(translateDataItem, false, true, true);
         }
     }
 

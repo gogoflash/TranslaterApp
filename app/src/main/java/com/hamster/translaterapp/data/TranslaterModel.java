@@ -179,7 +179,7 @@ public class TranslaterModel
                 historyCursorAdapter.notifyDataSetChanged();
             }
 
-            setTranslate(item, false, false);
+            setTranslate(item, false, false, false);
         }
     }
 
@@ -192,7 +192,7 @@ public class TranslaterModel
      * @param goToTranslateFragment - нужно ли перейти в экран перевода
      *
      * */
-    public void setTranslate(TranslateDataItem translateDataItem, Boolean saveInDataBase, Boolean goToTranslateFragment)
+    public void setTranslate(TranslateDataItem translateDataItem, Boolean saveInDataBase, Boolean goToTranslateFragment, Boolean fromHistory)
     {
         this.translateDataItem = translateDataItem;
 
@@ -212,7 +212,7 @@ public class TranslaterModel
             ((Main) context).goToFragmnetByIndex(0);
 
         if(translateFragment != null)
-            translateFragment.refreshTranslate(goToTranslateFragment);
+            translateFragment.refreshTranslate(goToTranslateFragment, fromHistory);
     }
 
     public void putInFavorites(TranslateDataItem item, Boolean value)

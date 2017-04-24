@@ -121,7 +121,7 @@ public class TranslateManager implements Callback<YandexTranslaterResponseJSON> 
                     );
 
             // Пишем в базу, инициируем обновление экрана с переводом:
-            TranslaterModel.getIstance().setTranslate(item, true, false);
+            TranslaterModel.getIstance().setTranslate(item, true, false, false);
         }
     }
 
