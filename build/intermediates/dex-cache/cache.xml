@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\ПК\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\retrofit\2.2.0\41e67dba73c3347e4503761642c39d0e06ca1f2\retrofit-2.2.0.jar"
+        jumboMode="true"
+        revision="24.0.2"
+        sha1="041e67dba73c3347e4503761642c39d0e06ca1f2">
+        <dex dex="D:\Funny cats\android\TranslaterApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\retrofit-2.2.0_8fb1a8a2a279a0f22d826edc3e5ebba2fe058756\classes.dex" />
+    </item>
+    <item
+        jar="D:\Funny cats\android\TranslaterApp\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.0\jars\classes.jar"
+        jumboMode="true"
+        revision="24.0.2"
+        sha1="d8bd2268fdcbfd52c76ade65d9900cd8def93a44">
+        <dex dex="D:\Funny cats\android\TranslaterApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-fragment-24.2.0_1ab7f9d906bf629fd09fd9f21bae4c5abc2090d2\classes.dex" />
+    </item>
+    <item
+        jar="D:\Funny cats\android\TranslaterApp\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.2.0\jars\classes.jar"
+        jumboMode="true"
+        revision="24.0.2"
+        sha1="c3c638be6e650b165ab9ae144857b64e82787fad">
+        <dex dex="D:\Funny cats\android\TranslaterApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-24.2.0_eb041314b7fa35e66c07737e2d250a0ddf899776\classes.dex" />
+    </item>
+    <item
+        jar="D:\Funny cats\android\TranslaterApp\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.0\jars\classes.jar"
+        jumboMode="true"
+        revision="24.0.2"
+        sha1="6eb9107eb34d2fe2b020662b7fbbec991dcba846">
+        <dex dex="D:\Funny cats\android\TranslaterApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-media-compat-24.2.0_2045dcc9fe1fe5e603a21540806b4f4b36794943\classes.dex" />
+    </item>
+    <item
+        jar="D:\Funny cats\android\TranslaterApp\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="24.0.2"
+        sha1="4e0435c28dbadc9c25b880c1b54f8843ab31e44b">
+        <dex dex="D:\Funny cats\android\TranslaterApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_e5b02379365d33de565d8d5ccc9e3266917a3e61\classes.dex" />
+    </item>
+    <item
+        jar="D:\Funny cats\android\TranslaterApp\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.0\jars\classes.jar"
+        jumboMode="true"
+        revision="24.0.2"
+        sha1="f9b41622897665678d31d78e57a361cb0cebcb0d">
+        <dex dex="D:\Funny cats\android\TranslaterApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-compat-24.2.0_63a390f7b6041416040c0729e0e3282ac8c1f73c\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\ПК\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.7\751f548c85fa49f330cecbb1875893f971b33c4e\gson-2.7.jar"
+        jumboMode="true"
+        revision="24.0.2"
+        sha1="751f548c85fa49f330cecbb1875893f971b33c4e">
+        <dex dex="D:\Funny cats\android\TranslaterApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\gson-2.7_6c0a76207eb5650c54f02bb14866f47cdde7fe06\classes.dex" />
+    </item>
+    <item
+        jar="D:\Funny cats\android\TranslaterApp\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\24.2.0\jars\classes.jar"
+        jumboMode="true"
+        revision="24.0.2"
+        sha1="c755536e5a100d9c76c8ea0b72f76c018f7a9de2">
+        <dex dex="D:\Funny cats\android\TranslaterApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-24.2.0_cad8f639a8fa87b42d9f469296e146f2dfa2932f\classes.dex" />
+    </item>
+    <item
+        jar="D:\Funny cats\android\TranslaterApp\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.0\jars\libs\internal_impl-24.2.0.jar"
+        jumboMode="true"
+        revision="24.0.2"
+        sha1="032a4b53def5e2ceedfc2e793b126c0163cfa1dd">
+        <dex dex="D:\Funny cats\android\TranslaterApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.0_9581523e5c685aabdb4a9d2b6d3c519c8d5cadea\classes.dex" />
+    </item>
+    <item
+        jar="D:\Funny cats\android\TranslaterApp\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.2.0\jars\classes.jar"
+        jumboMode="true"
+        revision="24.0.2"
+        sha1="f3ee23ef25c9a8fe3d40246d0b7097267963a612">
+        <dex dex="D:\Funny cats\android\TranslaterApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-24.2.0_17b0c3dda18d0111f94543a0e112a05079585ba2\classes.dex" />
+    </item>
+    <item
+        jar="D:\Funny cats\android\TranslaterApp\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="24.0.2"
+        sha1="d22c3357c1b3fceb7a790eb9e4d5a9d7eef86ae9">
+        <dex dex="D:\Funny cats\android\TranslaterApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_293c7ceffa2a4893a0edca89e1bdf8ccad96f781\classes.dex" />
+    </item>
+    <item
+        jar="D:\Funny cats\android\TranslaterApp\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.0\jars\libs\internal_impl-24.2.0.jar"
+        jumboMode="true"
+        revision="24.0.2"
+        sha1="045be695d968dd707691cc55d23746dbf8cf569a">
+        <dex dex="D:\Funny cats\android\TranslaterApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.0_fce3ee0c1cd29fbe67037656847a072a1b6128b2\classes.dex" />
+    </item>
+    <item
+        jar="C:\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\24.2.0\support-annotations-24.2.0.jar"
+        jumboMode="true"
+        revision="24.0.2"
+        sha1="6be858a75633b1f0a2d24cad740db57775cb6871">
+        <dex dex="D:\Funny cats\android\TranslaterApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-24.2.0_9e39f98bb961c405f8e5c9a86428b6e860d0213b\classes.dex" />
+    </item>
+    <item
+        jar="D:\Funny cats\android\TranslaterApp\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.0\jars\libs\internal_impl-24.2.0.jar"
+        jumboMode="true"
+        revision="24.0.2"
+        sha1="771b3cc0e597b54da25f8086ba73180c59c6bc71">
+        <dex dex="D:\Funny cats\android\TranslaterApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.0_4f6f8fe84df6d77c0bc3583093e88bebfd9ab825\classes.dex" />
+    </item>
+    <item
+        jar="D:\Funny cats\android\TranslaterApp\app\build\intermediates\exploded-aar\com.android.support\design\24.2.0\jars\classes.jar"
+        jumboMode="true"
+        revision="24.0.2"
+        sha1="23eb0d2998a782213b56168cbf23a0688b9111d9">
+        <dex dex="D:\Funny cats\android\TranslaterApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-24.2.0_58ed7c696276cc06d578328dba86387277085935\classes.dex" />
+    </item>
+    <item
+        jar="D:\Funny cats\android\TranslaterApp\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.2.0\jars\classes.jar"
+        jumboMode="true"
+        revision="24.0.2"
+        sha1="beac40bcc8a320a896dd15f5109cfcaea5e1e0e3">
+        <dex dex="D:\Funny cats\android\TranslaterApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-24.2.0_1910f897a859c7ce44957a7890d99a5dfa63bec1\classes.dex" />
+    </item>
+    <item
+        jar="D:\Funny cats\android\TranslaterApp\app\build\intermediates\exploded-aar\com.android.support\preference-v7\24.2.0\jars\classes.jar"
+        jumboMode="true"
+        revision="24.0.2"
+        sha1="27a8c41c5efc603d77b165fad06de1060e83984b">
+        <dex dex="D:\Funny cats\android\TranslaterApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-preference-v7-24.2.0_cc2099bb0fb6b2aa8f165be9527c363723b7252d\classes.dex" />
+    </item>
+    <item
+        jar="D:\Funny cats\android\TranslaterApp\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.0\jars\classes.jar"
+        jumboMode="true"
+        revision="24.0.2"
+        sha1="fcc945a86ebcbf527429acb8216ec7dae2c06417">
+        <dex dex="D:\Funny cats\android\TranslaterApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-utils-24.2.0_0a08ff2ef64a4cc6fd2904376a530192bf5d2f83\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\ПК\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.6.0\69edde9fc4b01c9fd51d25b83428837478c27254\okhttp-3.6.0.jar"
+        jumboMode="true"
+        revision="24.0.2"
+        sha1="69edde9fc4b01c9fd51d25b83428837478c27254">
+        <dex dex="D:\Funny cats\android\TranslaterApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\okhttp-3.6.0_12c084f0618838845dedcf0e42c00cb17a1163d8\classes.dex" />
+    </item>
+    <item
+        jar="D:\Funny cats\android\TranslaterApp\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.2.0\jars\classes.jar"
+        jumboMode="true"
+        revision="24.0.2"
+        sha1="45f5eda279825ff470e3f51019d374d1ef61e000">
+        <dex dex="D:\Funny cats\android\TranslaterApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-24.2.0_f8c7429c7140aba9e28ace58474aa436b8c34a39\classes.dex" />
+    </item>
+    <item
+        jar="D:\Funny cats\android\TranslaterApp\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.0\jars\classes.jar"
+        jumboMode="true"
+        revision="24.0.2"
+        sha1="c84e216d9bf618464d6b9564d71d9a656433e7c4">
+        <dex dex="D:\Funny cats\android\TranslaterApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-ui-24.2.0_400d4faf903367cc2a44cd4b6725ff9a7cc22e4d\classes.dex" />
+    </item>
+    <item
+        jar="D:\Funny cats\android\TranslaterApp\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.0\jars\libs\internal_impl-24.2.0.jar"
+        jumboMode="true"
+        revision="24.0.2"
+        sha1="6e02e34594ebe9c0501ffda8dd48497f81b82977">
+        <dex dex="D:\Funny cats\android\TranslaterApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.0_dcefef86680d778bc0856c20535789b6e3c9de8b\classes.dex" />
+    </item>
+    <item
+        jar="D:\Funny cats\android\TranslaterApp\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.0\jars\libs\internal_impl-24.2.0.jar"
+        jumboMode="true"
+        revision="24.0.2"
+        sha1="60d7b23621d31e6f42f4f76f16af467e57a20cda">
+        <dex dex="D:\Funny cats\android\TranslaterApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.0_f4ccf30c84092e47052f4daf2897cc18f37c6679\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\ПК\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\converter-gson\2.2.0\a09926806199499a20b2f5168779499abfa33342\converter-gson-2.2.0.jar"
+        jumboMode="true"
+        revision="24.0.2"
+        sha1="a09926806199499a20b2f5168779499abfa33342">
+        <dex dex="D:\Funny cats\android\TranslaterApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\converter-gson-2.2.0_0b85263a946cb3e46c55a911a077f504ddd17fcd\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\ПК\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.11.0\840897fcd7223a8143f1d9b6f69714e7be34fd50\okio-1.11.0.jar"
+        jumboMode="true"
+        revision="24.0.2"
+        sha1="840897fcd7223a8143f1d9b6f69714e7be34fd50">
+        <dex dex="D:\Funny cats\android\TranslaterApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\okio-1.11.0_9c2da39dd381507499502c19e1e844660b876404\classes.dex" />
+    </item>
+
+</items>
